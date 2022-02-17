@@ -41,9 +41,8 @@ $user_name = 'Rustam Abdullaev'; // укажите здесь ваше имя
             </div>
         </form>
         <div class="header__nav-wrapper">
-            <?php 
-                if ($is_auth == 1) {
-            ?>
+            <?php if ($is_auth === 1) : ?>
+            
                     <nav class="header__nav">
                         <ul class="header__my-nav">
                             <li class="header__my-page header__my-page--popular">
@@ -113,7 +112,7 @@ $user_name = 'Rustam Abdullaev'; // укажите здесь ваше имя
                             </li>
                         </ul>
                     </nav>
-                <?php } ?>
+                <?php endif ; ?>
         </div>
     </div>
 </header>
