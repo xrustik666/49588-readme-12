@@ -287,11 +287,11 @@ $user_name = 'Rustam Abdullaev'; // укажите здесь ваше имя
                         'content' => 'www.htmlacademy.ru',
                         'name' => 'Владик',
                         'avatar' => 'userpic.jpg'
-                    ],
+                    ]
                 ] ;
             ?>
             
-            <?php foreach ($arr as $key => $value) : ?>
+            <?php foreach ($arr as $value) : ?>
                 <article class="popular__post post <?=$value['type'];?>">
                     <header class="post__header">
                         <h2>
