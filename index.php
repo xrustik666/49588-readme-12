@@ -251,49 +251,142 @@ $user_name = 'Rustam Abdullaev'; // укажите здесь ваше имя
                 <p><!--здесь текст--></p>
             </div>
 
-            <article class="popular__post post">
-                <header class="post__header">
-                    <h2><!--здесь заголовок--></h2>
-                </header>
-                <div class="post__main">
-                    <!--здесь содержимое карточки-->
-                </div>
-                <footer class="post__footer">
-                    <div class="post__author">
-                        <a class="post__author-link" href="#" title="Автор">
-                            <div class="post__avatar-wrapper">
-                                <!--укажите путь к файлу аватара-->
-                                <img class="post__author-avatar" src="img/" alt="Аватар пользователя">
+            <?php
+                $arr = [
+                    [
+                        'title' => 'Цитата',
+                        'type' => 'post-quote',
+                        'content' => 'Мы в жизни любим только раз, а после ищем лишь похожих',
+                        'name' => 'Лариса',
+                        'avatar' => 'userpic-larisa-small.jpg'
+                    ],
+                    [
+                        'title' => 'Игра престолов',
+                        'type' => 'post-text',
+                        'content' => 'Не могу дождаться начала финального сезона своего любимого сериала!',
+                        'name' => 'Владик',
+                        'avatar' => 'userpic.jpg'
+                    ],
+                    [
+                        'title' => 'Наконец, обработал фотки!',
+                        'type' => 'post-photo',
+                        'content' => 'rock-medium.jpg',
+                        'name' => 'Виктор',
+                        'avatar' => 'userpic-mark.jpg'
+                    ],
+                    [
+                        'title' => 'Моя мечта',
+                        'type' => 'post-photo',
+                        'content' => 'coast-medium.jpg',
+                        'name' => 'Лариса',
+                        'avatar' => 'userpic-larisa-small.jpg'
+                    ],
+                    [
+                        'title' => 'Лучшие курсы',
+                        'type' => 'post-link',
+                        'content' => 'www.htmlacademy.ru',
+                        'name' => 'Владик',
+                        'avatar' => 'userpic.jpg'
+                    ]
+                ] ;
+            ?>
+            
+            <?php foreach ($arr as $value) : ?>
+                <article class="popular__post post <?=$value['type'];?>">
+                    <header class="post__header">
+                        <h2>
+                            <!--здесь заголовок-->
+                            <?=$value['title'];?>
+                        </h2>
+                    </header>
+                    <div class="post__main">
+                        <!--здесь содержимое карточки-->
+                        <?php if ($value['type'] === 'post-quote') : ?>
+                            <!--содержимое для поста-цитаты-->
+                            <blockquote>
+                                <p>
+                                    <!--здесь текст-->
+                                    <?=$value['content'];?>
+                                </p>
+                                <cite>Неизвестный Автор</cite>
+                            </blockquote>            
+                        <?php endif ; ?>
+
+                        <?php if ($value['type'] === 'post-photo') : ?>
+                            <!--содержимое для поста-фото-->
+                            <div class="post-photo__image-wrapper">
+                                <img src="img/<?=$value['content'];?>" alt="Фото от пользователя" width="360" height="240">
                             </div>
-                            <div class="post__info">
-                                <b class="post__author-name"><!--здесь имя пользоателя--></b>
-                                <time class="post__time" datetime="">дата</time>
+                        <?php endif; ?>
+
+                        <?php if ($value['type'] === 'post-link') : ?>
+                            <!--содержимое для поста-ссылки-->
+                            <div class="post-link__wrapper">
+                                <a class="post-link__external" href="http://<?=$value['content'];?>" title="Перейти по ссылке">
+                                    <div class="post-link__info-wrapper">
+                                        <div class="post-link__icon-wrapper">
+                                            <img src="https://www.google.com/s2/favicons?domain=vitadental.ru" alt="Иконка">
+                                        </div>
+                                        <div class="post-link__info">
+                                            <h3>
+                                                <!--здесь заголовок-->
+                                                <?=$value['title'];?>
+                                            </h3>
+                                        </div>
+                                    </div>
+                                    <span>
+                                        <!--здесь ссылка-->
+                                        <?=$value['content'];?>
+                                    </span>
+                                </a>
                             </div>
-                        </a>
+                        <?php endif; ?>
+
+                        <?php if ($value['type'] === 'post-text') : ?>
+                            <!--содержимое для поста-текста-->
+                            <p>
+                                <!--здесь текст-->
+                                <?=$value['content'];?>
+                            </p>
+                        <?php endif; ?> 
                     </div>
-                    <div class="post__indicators">
-                        <div class="post__buttons">
-                            <a class="post__indicator post__indicator--likes button" href="#" title="Лайк">
-                                <svg class="post__indicator-icon" width="20" height="17">
-                                    <use xlink:href="#icon-heart"></use>
-                                </svg>
-                                <svg class="post__indicator-icon post__indicator-icon--like-active" width="20" height="17">
-                                    <use xlink:href="#icon-heart-active"></use>
-                                </svg>
-                                <span>0</span>
-                                <span class="visually-hidden">количество лайков</span>
-                            </a>
-                            <a class="post__indicator post__indicator--comments button" href="#" title="Комментарии">
-                                <svg class="post__indicator-icon" width="19" height="17">
-                                    <use xlink:href="#icon-comment"></use>
-                                </svg>
-                                <span>0</span>
-                                <span class="visually-hidden">количество комментариев</span>
+                    <footer class="post__footer">
+                        <div class="post__author">
+                            <a class="post__author-link" href="#" title="Автор">
+                                <div class="post__avatar-wrapper">
+                                    <!--укажите путь к файлу аватара-->
+                                    <img class="post__author-avatar" src="img/<?=$value['avatar'];?>" alt="Аватар пользователя">
+                                </div>
+                                <div class="post__info">
+                                    <b class="post__author-name"><!--здесь имя пользоателя--><?=$value['name'];?></b>
+                                    <time class="post__time" datetime="">дата</time>
+                                </div>
                             </a>
                         </div>
-                    </div>
-                </footer>
-            </article>
+                        <div class="post__indicators">
+                            <div class="post__buttons">
+                                <a class="post__indicator post__indicator--likes button" href="#" title="Лайк">
+                                    <svg class="post__indicator-icon" width="20" height="17">
+                                        <use xlink:href="#icon-heart"></use>
+                                    </svg>
+                                    <svg class="post__indicator-icon post__indicator-icon--like-active" width="20" height="17">
+                                        <use xlink:href="#icon-heart-active"></use>
+                                    </svg>
+                                    <span>0</span>
+                                    <span class="visually-hidden">количество лайков</span>
+                                </a>
+                                <a class="post__indicator post__indicator--comments button" href="#" title="Комментарии">
+                                    <svg class="post__indicator-icon" width="19" height="17">
+                                        <use xlink:href="#icon-comment"></use>
+                                    </svg>
+                                    <span>0</span>
+                                    <span class="visually-hidden">количество комментариев</span>
+                                </a>
+                            </div>
+                        </div>
+                    </footer>
+                </article>
+            <?php endforeach; ?>
         </div>
     </div>
 </section>
