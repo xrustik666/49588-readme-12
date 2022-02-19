@@ -263,7 +263,7 @@ $user_name = 'Rustam Abdullaev'; // укажите здесь ваше имя
                     [
                         'title' => 'Игра престолов',
                         'type' => 'post-text',
-                        'content' => 'Не могу дождаться начала финального сезона своего любимого сериала!',
+                        'content' => 'Досмотрел таки последний сезон. Сказать, что разочарован - значит не сказать ничего. Превращение Дейнерис в монстра произошло слишком быстро, буквально за несколько серий. А ведь по хорошему, столь важный сюжетный ход должен был происходить на протяжении нескольких сезонов. Конечно, тревожные звоночки были и раньше, но они были не ярко выражены, и ничего не предвещало столь ужасного исхода.',
                         'name' => 'Владик',
                         'avatar' => 'userpic.jpg'
                     ],
@@ -346,7 +346,35 @@ $user_name = 'Rustam Abdullaev'; // укажите здесь ваше имя
                             <!--содержимое для поста-текста-->
                             <p>
                                 <!--здесь текст-->
-                                <?=$value['content'];?>
+                                <?php
+                                    function textCut($str, $maxStringLen = 300) {
+                                        if (strlen($str) > $maxStringLen) {
+                                            $symCount = 0 ;
+                                            $wordsCount = 0 ;
+                                            $togetherAgain = "" ;
+                                            $strPieces = explode (" ", $str) ;  // Превращаем строку в массив, чтобы можно было добавлять по слову через цикл
+                                
+                                            while ($symCount < $maxStringLen) {
+                                                $symCount = $symCount + iconv_strlen ($strPieces[$wordsCount], 'UTF-8') ;   // Считает количество символов в элементе массива
+                                                $togetherAgain = $togetherAgain . " " . $strPieces[$wordsCount] ;   // Обратный процесс: формирует строку из элементов массива
+                                                $wordsCount++ ; // Счетчик слов. Используется в качестве индекса массива $strPieces
+
+                                                // Если к текущему количеству символов прибавить количество символов следующего слова и получится > 300, то стоп.
+                                                if ($symCount + iconv_strlen ($strPieces[$wordsCount]) > $maxStringLen) {
+                                                    $togetherAgain = $togetherAgain . "..." ; ?>
+                                                    <a class="post-text__more-link" href="#">Читать далее</a>
+                                                    <?php
+                                                    break ;
+                                                }
+                                            }
+                                            return $togetherAgain ;
+                                        } else {
+                                            return $str ;
+                                        }
+                                    }
+                                    $showMeText = textCut ($value['content']) ;
+                                    print ($showMeText) ;
+                                ?>
                             </p>
                         <?php endif; ?> 
                     </div>
