@@ -352,28 +352,41 @@ $user_name = 'Rustam Abdullaev'; // укажите здесь ваше имя
                                             $symCount = 0 ;
                                             $wordsCount = 0 ;
                                             $togetherAgain = "" ;
-                                            $strPieces = explode (" ", $str) ;  // Превращаем строку в массив, чтобы можно было добавлять по слову через цикл
-                                
+                                            $strPieces = explode (" ", $str) ;  // Превращаем строку в массив, чтобы можно было добавлять по слову через цикл                                    
+                                            
+                                            // Этот цикл высчитывает, где нужно остановиться:
                                             while ($symCount < $maxStringLen) {
                                                 $symCount = $symCount + iconv_strlen ($strPieces[$wordsCount], 'UTF-8') ;   // Считает количество символов в элементе массива
-                                                $togetherAgain = $togetherAgain . " " . $strPieces[$wordsCount] ;   // Обратный процесс: формирует строку из элементов массива
                                                 $wordsCount++ ; // Счетчик слов. Используется в качестве индекса массива $strPieces
-
+                                
                                                 // Если к текущему количеству символов прибавить количество символов следующего слова и получится > 300, то стоп.
                                                 if ($symCount + iconv_strlen ($strPieces[$wordsCount]) > $maxStringLen) {
-                                                    $togetherAgain = $togetherAgain . "..." ; ?>
-                                                    <a class="post-text__more-link" href="#">Читать далее</a>
-                                                    <?php
                                                     break ;
                                                 }
                                             }
-                                            return $togetherAgain ;
-                                        } else {
-                                            return $str ;
+                                            
+                                            // Этот цикл собирает строку из массива:
+                                            $iterationCount = 0 ;
+                                            $wCount = 0;
+                                            while ($iterationCount < $wordsCount) {
+                                                $strPieces[] = $strPieces[$iterationCount] ;
+                                                $wCount = $wCount + iconv_strlen ($strPieces[$iterationCount]) ;
+                                                $iterationCount++ ;
+                                            }
+                                            
+                                            $togetherAgain = implode (" ", $strPieces) ;
+                                            
+                                            $togetherAgain = $togetherAgain . "..." ;
+                                            
+                                            echo $togetherAgain ; ?>
+                                            <p><a class="post-text__more-link" href="#">Читать далее</a>
+                                            <?php
+                                        }  else {
+                                            echo $str ;
                                         }
                                     }
-                                    $showMeText = textCut ($value['content']) ;
-                                    print ($showMeText) ;
+                                    
+                                    textCut ($value['content']) ;
                                 ?>
                             </p>
                         <?php endif; ?> 
