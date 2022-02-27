@@ -3,7 +3,67 @@ require_once 'helpers.php';
 $is_auth = rand(0, 1);
 
 $user_name = 'Rustam Abdullaev'; // укажите здесь ваше имя
+
+// Создаем массив с данными для карточек
+$arr = [
+    [
+        'title' => 'Цитата',
+        'type' => 'post-quote',
+        'content' => 'Мы в жизни любим только раз, а после ищем лишь похожих',
+        'name' => 'Лариса',
+        'avatar' => 'userpic-larisa-small.jpg'
+    ],
+    [
+        'title' => 'Игра престолов',
+        'type' => 'post-text',
+        'content' => 'Досмотрел таки последний сезон. Сказать, что разочарован - значит не сказать ничего. Превращение Дейнерис в монстра произошло слишком быстро, буквально за несколько серий. А ведь по хорошему, столь важный сюжетный ход должен был происходить на протяжении нескольких сезонов. Конечно, тревожные звоночки были и раньше, но они были не ярко выражены, и ничего не предвещало столь ужасного исхода.',
+        'name' => 'Владик',
+        'avatar' => 'userpic.jpg'
+    ],
+    [
+        'title' => 'Наконец, обработал фотки!',
+        'type' => 'post-photo',
+        'content' => 'rock-medium.jpg',
+        'name' => 'Виктор',
+        'avatar' => 'userpic-mark.jpg'
+    ],
+    [
+        'title' => 'Моя мечта',
+        'type' => 'post-photo',
+        'content' => 'coast-medium.jpg',
+        'name' => 'Лариса',
+        'avatar' => 'userpic-larisa-small.jpg'
+    ],
+    [
+        'title' => 'Лучшие курсы',
+        'type' => 'post-link',
+        'content' => 'www.htmlacademy.ru',
+        'name' => 'Владик',
+        'avatar' => 'userpic.jpg'
+    ]
+] ;
+
+// Функция обрезания текста
+function textCut($str, $maxStringLen = 300) {
+    $words = explode(' ', $str);
+    $length = -1;
+    $outWords = [];
+
+    foreach ($words as $word) {
+        $length += mb_strlen($word) + 1;
+
+        if ($length > $maxStringLen) {
+            break;
+        }
+
+        $outWords[] = $word;
+    }
+
+    return implode(' ', $outWords);
+}
 ?>
+
+
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -251,45 +311,7 @@ $user_name = 'Rustam Abdullaev'; // укажите здесь ваше имя
                 <p><!--здесь текст--></p>
             </div>
 
-            <?php
-                $arr = [
-                    [
-                        'title' => 'Цитата',
-                        'type' => 'post-quote',
-                        'content' => 'Мы в жизни любим только раз, а после ищем лишь похожих',
-                        'name' => 'Лариса',
-                        'avatar' => 'userpic-larisa-small.jpg'
-                    ],
-                    [
-                        'title' => 'Игра престолов',
-                        'type' => 'post-text',
-                        'content' => 'Досмотрел таки последний сезон. Сказать, что разочарован - значит не сказать ничего. Превращение Дейнерис в монстра произошло слишком быстро, буквально за несколько серий. А ведь по хорошему, столь важный сюжетный ход должен был происходить на протяжении нескольких сезонов. Конечно, тревожные звоночки были и раньше, но они были не ярко выражены, и ничего не предвещало столь ужасного исхода.',
-                        'name' => 'Владик',
-                        'avatar' => 'userpic.jpg'
-                    ],
-                    [
-                        'title' => 'Наконец, обработал фотки!',
-                        'type' => 'post-photo',
-                        'content' => 'rock-medium.jpg',
-                        'name' => 'Виктор',
-                        'avatar' => 'userpic-mark.jpg'
-                    ],
-                    [
-                        'title' => 'Моя мечта',
-                        'type' => 'post-photo',
-                        'content' => 'coast-medium.jpg',
-                        'name' => 'Лариса',
-                        'avatar' => 'userpic-larisa-small.jpg'
-                    ],
-                    [
-                        'title' => 'Лучшие курсы',
-                        'type' => 'post-link',
-                        'content' => 'www.htmlacademy.ru',
-                        'name' => 'Владик',
-                        'avatar' => 'userpic.jpg'
-                    ]
-                ] ;
-            ?>
+            
             
             <?php foreach ($arr as $value) : ?>
                 <article class="popular__post post <?=$value['type'];?>">
@@ -346,48 +368,13 @@ $user_name = 'Rustam Abdullaev'; // укажите здесь ваше имя
                             <!--содержимое для поста-текста-->
                             <p>
                                 <!--здесь текст-->
-                                <?php
-                                    function textCut($str, $maxStringLen = 300) {
-                                        if (strlen($str) > $maxStringLen) {
-                                            $symCount = 0 ;
-                                            $wordsCount = 0 ;
-                                            $togetherAgain = "" ;
-                                            $strPieces = explode (" ", $str) ;  // Превращаем строку в массив, чтобы можно было добавлять по слову через цикл                                    
-                                            
-                                            // Этот цикл высчитывает, где нужно остановиться:
-                                            while ($symCount < $maxStringLen) {
-                                                $symCount = $symCount + iconv_strlen ($strPieces[$wordsCount], 'UTF-8') ;   // Считает количество символов в элементе массива
-                                                $wordsCount++ ; // Счетчик слов. Используется в качестве индекса массива $strPieces
-                                
-                                                // Если к текущему количеству символов прибавить количество символов следующего слова и получится > 300, то стоп.
-                                                if ($symCount + iconv_strlen ($strPieces[$wordsCount]) > $maxStringLen) {
-                                                    break ;
-                                                }
-                                            }
-                                            
-                                            // Этот цикл собирает строку из массива:
-                                            $iterationCount = 0 ;
-                                            $wCount = 0;
-                                            while ($iterationCount < $wordsCount) {
-                                                $strPieces[] = $strPieces[$iterationCount] ;
-                                                $wCount = $wCount + iconv_strlen ($strPieces[$iterationCount]) ;
-                                                $iterationCount++ ;
-                                            }
-                                            
-                                            $togetherAgain = implode (" ", $strPieces) ;
-                                            
-                                            $togetherAgain = $togetherAgain . "..." ;
-                                            
-                                            echo $togetherAgain ; ?>
-                                            <p><a class="post-text__more-link" href="#">Читать далее</a>
-                                            <?php
-                                        }  else {
-                                            echo $str ;
-                                        }
-                                    }
-                                    
-                                    textCut ($value['content']) ;
-                                ?>
+                                <!--Вызов функции обрезания текста-->
+                                <?php if (mb_strlen($value['content']) > 300): ?>
+                                    <?= textCut($value['content']); ?>...
+                                    <p><a href="#">Читать далее</a>
+                                <?php else: ?>
+                                    <?= textCut($value['content']); ?>
+                                <?php endif; ?>
                             </p>
                         <?php endif; ?> 
                     </div>
