@@ -67,9 +67,10 @@ $pageContent = include_template ('main.php', [
 ]) ;
 
 echo include_template('layout.php', [
-    'pageContent' => $pageContent,
+    'pageContent' => htmlspecialchars($pageContent),
     'isAuth' => mt_rand(0, 1),
-    'userName' => 'Rustam Abdullaev'
+    'userName' => 'Rustam Abdullaev',
+    'pageName' => "Напиши собственный блог!"
 ]);
 
 ?>

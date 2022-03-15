@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?php $pageName ?></title>
+    <title><?=$pageName ?></title>
     <link rel="stylesheet" href="css/main.css">
 </head>
 <body class="page">
@@ -112,7 +112,7 @@
 </header>
 
 <section class="page__main page__main--popular">
-    <?=$pageContent ;?>
+    <?=html_entity_decode($pageContent) ;?>
 </section>
 
 <footer class="footer">
