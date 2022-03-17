@@ -59,7 +59,6 @@ function textCut($str, $maxStringLen = 300) {
     return implode(' ', $outWords);
 }
 
-
 $pageContent = include_template ('main.php', [
     'posts' => $posts
 ]) ;
@@ -70,5 +69,7 @@ echo include_template('layout.php', [
     'userName' => 'Rustam Abdullaev',
     'pageName' => "Напиши собственный блог!"
 ]);
+
+
 
 ?>

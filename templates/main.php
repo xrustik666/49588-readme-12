@@ -207,7 +207,7 @@
                                 </div>
                                 <div class="post__info">
                                     <b class="post__author-name"><!--здесь имя пользоателя--><?=$post['name'];?></b>
-                                    <time class="post__time" datetime="">дата</time>
+                                    <time class="post__time" datetime=""><?=generate_random_date($post);?></time>
                                 </div>
                             </a>
                         </div>
