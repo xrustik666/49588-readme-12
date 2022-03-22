@@ -133,7 +133,7 @@
 
             
             
-            <?php foreach ($posts as $post) : ?>
+            <?php foreach ($posts as $index => $post) : ?>
                 <article class="popular__post post <?=$post['type'];?>">
                     <header class="post__header">
                         <h2>
@@ -207,7 +207,25 @@
                                 </div>
                                 <div class="post__info">
                                     <b class="post__author-name"><!--здесь имя пользоателя--><?=$post['name'];?></b>
-                                    <time class="post__time" datetime="">дата</time>
+                                    <time class="post__time" datetime="<?=$postDate;?>" title = "<?=date("d.m.Y H:i:s", strtotime($postDate))?>">
+                                        <?php
+                                            $currentDate = date('d.m.Y H:i:s') ;
+                                            $postDate = generate_random_date($index) ;
+                                            $diff = strtotime($currentDate) - strtotime($postDate) ;
+                                            
+                                            if ($diff/60 < 60) {
+                                                echo ceil($diff/60) . " " . get_noun_plural_form($diff/60, "минута", "минуты", "минут") . " назад" ;
+                                            } else if (($diff/60 >= 60) && ($diff/3600 < 24)) {
+                                                echo ceil($diff/3600) . " " . get_noun_plural_form($diff/3600, "час", "часа", "часов") . " назад" ;
+                                            } else if (($diff/3600 >= 24) && ($diff/86400 < 7)) {
+                                                echo ceil($diff/86400) . " " . get_noun_plural_form($diff/86400, "день", "дня", "дней") . " назад" ;
+                                            } else if (($diff/86400 >= 7) && ($diff/604800 < 5)) {
+                                                echo ceil($diff/604800) . " " . get_noun_plural_form($diff/604800, "неделя", "недели", "недель") . " назад" ;
+                                            } else if ($diff/604800 >= 5) {
+                                                echo ceil($diff/2600000) . " " . get_noun_plural_form($diff/2600000, "месяц", "месяца", "месяцев") . " назад" ;
+                                            }
+                                        ?>
+                                    </time>
                                 </div>
                             </a>
                         </div>

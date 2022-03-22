@@ -1,7 +1,5 @@
 <?php
 require_once 'helpers.php';
-//$is_auth = rand(0, 1);
-//$user_name = 'Rustam Abdullaev'; // укажите здесь ваше имя
 
 // Создаем массив с данными для карточек
 $posts = [
@@ -61,15 +59,17 @@ function textCut($str, $maxStringLen = 300) {
     return implode(' ', $outWords);
 }
 
-
 $pageContent = include_template ('main.php', [
     'posts' => $posts
 ]) ;
 
 echo include_template('layout.php', [
-    'pageContent' => $pageContent,
+    'pageContent' => htmlspecialchars($pageContent),
     'isAuth' => mt_rand(0, 1),
-    'userName' => 'Rustam Abdullaev'
+    'userName' => 'Rustam Abdullaev',
+    'pageName' => "Напиши собственный блог!"
 ]);
+
+
 
 ?>

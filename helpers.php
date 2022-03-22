@@ -262,3 +262,8 @@ function generate_random_date($index)
 
     return $dt;
 }
+
+function timeZone() {
+    date_default_timezone_set("Europe/Moscow");
+}
+
