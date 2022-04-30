@@ -4,7 +4,7 @@ CREATE DATABASE IF NOT EXISTS aida
 	
 USE aida;
 
-CREATE TABLE users (
+CREATE TABLE IF NOT EXISTS users (
 	id INT AUTO_INCREMENT PRIMARY KEY,
 	cur_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 	email VARCHAR (128) NOT NULL UNIQUE,
@@ -13,7 +13,7 @@ CREATE TABLE users (
 	avatar TEXT
 );
 
-CREATE TABLE posts (
+CREATE TABLE IF NOT EXISTS posts (
 	id INT AUTO_INCREMENT PRIMARY KEY,
 	cur_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 	title TEXT,
@@ -22,32 +22,41 @@ CREATE TABLE posts (
 	image TEXT,
 	video TEXT,
 	link TEXT,
-	views INT
+	views INT,
+	FOREIGN KEY (post_author_id) REFERENCES users(id),
+	FOREIGN KEY (content_type_id) REFERENCES content_types(id),
+	FOREIGN KEY (hash_id) REFERENCES hashtags(id)
 );
 
-CREATE TABLE comments (
+CREATE TABLE IF NOT EXISTS comments (
 	id INT AUTO_INCREMENT PRIMARY KEY,
 	cur_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-	content TEXT NOT NULL
+	content TEXT NOT NULL,
+	FOREIGN KEY (comment_author_id) REFERENCES users(id),
+	FOREIGN KEY (post_comment_id) REFERENCES posts(id)
 );
 
-CREATE TABLE likes (
+CREATE TABLE IF NOT EXISTS likes (
 	id INT AUTO_INCREMENT PRIMARY KEY,
-	author VARCHAR (128),
-	subscribe VARCHAR(128)
+	FOREIGN KEY (comment_author_id) REFERENCES comments(id),
+	FOREIGN KEY (liked_post_id) REFERENCES posts(id)
 );
 
-CREATE TABLE messages (
+CREATE TABLE IF NOT EXISTS messages (
 	id INT AUTO_INCREMENT PRIMARY KEY,
 	cur_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-	content TEXT
+	content TEXT,
+	FOREIGN KEY (sender_id) REFERENCES users(id),
+	FOREIGN KEY (reciever_id) REFERENCES users(id)
 );
 
-CREATE TABLE hashtags (
-	hashname VARCHAR (128)
+CREATE TABLE IF NOT EXISTS hashtags (
+	id INT AUTO_INCREMENT PRIMARY KEY,
+	hashname VARCHAR (128) NOT NULL
 );
 
-CREATE TABLE content_type (
-	content_name ENUM ('Текст', 'Цитата', 'Картинка', 'Видео', 'Ссылка'),
+CREATE TABLE IF NOT EXISTS content_types (
+	id INT AUTO_INCREMENT PRIMARY KEY,
+	content_name ENUM ('Текст', 'Цитата', 'Картинка', 'Видео', 'Ссылка') NOT NULL,
 	icon_name ENUM ('photo', 'video', 'text', 'quote', 'link')
 );
