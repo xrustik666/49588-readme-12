@@ -23,6 +23,9 @@ CREATE TABLE IF NOT EXISTS posts (
 	video TEXT,
 	link TEXT,
 	views INT,
+	post_author_id INT NOT NULL,
+	content_type_id INT NOT NULL,
+	hash_id INT NOT NULL,
 	FOREIGN KEY (post_author_id) REFERENCES users(id),
 	FOREIGN KEY (content_type_id) REFERENCES content_types(id),
 	FOREIGN KEY (hash_id) REFERENCES hashtags(id)
@@ -32,12 +35,16 @@ CREATE TABLE IF NOT EXISTS comments (
 	id INT AUTO_INCREMENT PRIMARY KEY,
 	cur_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 	content TEXT NOT NULL,
+	comment_author_id INT NOT NULL,
+	post_comment_id INT NOT NULL,
 	FOREIGN KEY (comment_author_id) REFERENCES users(id),
 	FOREIGN KEY (post_comment_id) REFERENCES posts(id)
 );
 
 CREATE TABLE IF NOT EXISTS likes (
 	id INT AUTO_INCREMENT PRIMARY KEY,
+	comment_author_id INT NOT NULL,
+	liked_post_id INT NOT NULL,
 	FOREIGN KEY (comment_author_id) REFERENCES comments(id),
 	FOREIGN KEY (liked_post_id) REFERENCES posts(id)
 );
@@ -46,6 +53,8 @@ CREATE TABLE IF NOT EXISTS messages (
 	id INT AUTO_INCREMENT PRIMARY KEY,
 	cur_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 	content TEXT,
+	sender_id INT NOT NULL,
+	reciever_id INT NOT NULL,
 	FOREIGN KEY (sender_id) REFERENCES users(id),
 	FOREIGN KEY (reciever_id) REFERENCES users(id)
 );
