@@ -11,11 +11,12 @@ FROM posts p
 JOIN users u ON p.post_author_id = u.id
 WHERE u.id = 2;
 
-/*получить список комментариев для одного поста, в комментариях должен быть логин пользователя*/
-SELECT u.login, c.content 
+/*получить список комментариев для одного поста, в комментариях должен быть логин пользователя (по посту выборку сделать)*/
+SELECT u.login, c.content, p.title 
 FROM comments c 
 JOIN users u ON c.comment_author_id = u.id
-WHERE u.id = 2;
+JOIN posts p ON  p.post_author_id = u.id
+WHERE p.id = 2;
 
 /*добавить лайк к посту*/
 INSERT INTO likes SET comment_author_id = 1, liked_post_id = 1;

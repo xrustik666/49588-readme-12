@@ -1,12 +1,12 @@
-/*добавляем типы контента*/
-INSERT INTO content_types SET content_name = 'Текст', icon_name = 'quote';
-INSERT INTO content_types SET content_name = 'Текст', icon_name = 'quote';
-INSERT INTO content_types SET content_name = 'Текст', icon_name = 'quote';
-
 /*добавляем пользователей*/
 INSERT INTO users SET email = 'hello@gmail.com', login = 'valera', pass = 'xxxxx', avatar = "http://avatar.com/xxx";
 INSERT INTO users SET email = 'byebye@hotmail.com', login = 'sonya', pass = 'zzzzz', avatar = "http://avatar.com/zzz";
 INSERT INTO users SET email = 'here_we_go@mail.com', login = 'elon', pass = 'musk', avatar = "http://avatar.com/yyy";
+
+/*добавляем типы контента*/
+INSERT INTO content_types SET content_name = 'Текст', icon_name = 'quote';
+INSERT INTO content_types SET content_name = 'Текст', icon_name = 'quote';
+INSERT INTO content_types SET content_name = 'Текст', icon_name = 'quote';
 
 /*добавляем хэштеги*/
 INSERT INTO hashtags SET hashname = 'first hash ever';
