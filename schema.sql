@@ -9,8 +9,19 @@ CREATE TABLE IF NOT EXISTS users (
 	cur_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 	email VARCHAR (128) NOT NULL UNIQUE,
 	login VARCHAR (128) NOT NULL UNIQUE,
-	password CHAR (64),
+	pass CHAR (64),
 	avatar TEXT
+);
+
+CREATE TABLE IF NOT EXISTS hashtags (
+	id INT AUTO_INCREMENT PRIMARY KEY,
+	hashname VARCHAR (128) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS content_types (
+	id INT AUTO_INCREMENT PRIMARY KEY,
+	content_name ENUM ('Текст', 'Цитата', 'Картинка', 'Видео', 'Ссылка') NOT NULL,
+	icon_name ENUM ('photo', 'video', 'text', 'quote', 'link')
 );
 
 CREATE TABLE IF NOT EXISTS posts (
@@ -18,7 +29,7 @@ CREATE TABLE IF NOT EXISTS posts (
 	cur_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 	title TEXT,
 	content TEXT,
-	author VARCHAR(128) NOT NULL,
+	cite_author VARCHAR(128) NOT NULL,
 	image TEXT,
 	video TEXT,
 	link TEXT,
@@ -49,6 +60,14 @@ CREATE TABLE IF NOT EXISTS likes (
 	FOREIGN KEY (liked_post_id) REFERENCES posts(id)
 );
 
+CREATE TABLE IF NOT EXISTS subscribe (
+	id INT AUTO_INCREMENT PRIMARY KEY,
+	subscribing_author_id INT NOT NULL,
+	subscribed_author_id INT NOT NULL,
+	FOREIGN KEY (subscribing_author_id) REFERENCES users(id),
+	FOREIGN KEY (subscribed_author_id) REFERENCES users(id)
+);
+
 CREATE TABLE IF NOT EXISTS messages (
 	id INT AUTO_INCREMENT PRIMARY KEY,
 	cur_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -59,13 +78,3 @@ CREATE TABLE IF NOT EXISTS messages (
 	FOREIGN KEY (reciever_id) REFERENCES users(id)
 );
 
-CREATE TABLE IF NOT EXISTS hashtags (
-	id INT AUTO_INCREMENT PRIMARY KEY,
-	hashname VARCHAR (128) NOT NULL
-);
-
-CREATE TABLE IF NOT EXISTS content_types (
-	id INT AUTO_INCREMENT PRIMARY KEY,
-	content_name ENUM ('Текст', 'Цитата', 'Картинка', 'Видео', 'Ссылка') NOT NULL,
-	icon_name ENUM ('photo', 'video', 'text', 'quote', 'link')
-);
