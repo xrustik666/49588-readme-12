@@ -13,6 +13,17 @@ CREATE TABLE IF NOT EXISTS users (
 	avatar TEXT
 );
 
+CREATE TABLE IF NOT EXISTS hashtags (
+	id INT AUTO_INCREMENT PRIMARY KEY,
+	hashname VARCHAR (128) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS content_types (
+	id INT AUTO_INCREMENT PRIMARY KEY,
+	content_name ENUM ('Текст', 'Цитата', 'Картинка', 'Видео', 'Ссылка') NOT NULL,
+	icon_name ENUM ('photo', 'video', 'text', 'quote', 'link')
+);
+
 CREATE TABLE IF NOT EXISTS posts (
 	id INT AUTO_INCREMENT PRIMARY KEY,
 	cur_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -59,13 +70,10 @@ CREATE TABLE IF NOT EXISTS messages (
 	FOREIGN KEY (reciever_id) REFERENCES users(id)
 );
 
-CREATE TABLE IF NOT EXISTS hashtags (
+CREATE TABLE IF NOT EXISTS subscribe (
 	id INT AUTO_INCREMENT PRIMARY KEY,
-	hashname VARCHAR (128) NOT NULL
-);
-
-CREATE TABLE IF NOT EXISTS content_types (
-	id INT AUTO_INCREMENT PRIMARY KEY,
-	content_name ENUM ('Текст', 'Цитата', 'Картинка', 'Видео', 'Ссылка') NOT NULL,
-	icon_name ENUM ('photo', 'video', 'text', 'quote', 'link')
+	subscribing_author_id INT NOT NULL,
+	subscribed_author_id INT NOT NULL,
+	FOREIGN KEY (subscribing_author_id) REFERENCES users(id),
+	FOREIGN KEY (subscribed_author_id) REFERENCES users(id)
 );

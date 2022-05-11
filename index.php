@@ -2,7 +2,7 @@
 require_once 'helpers.php';
 
 // Создаем массив с данными для карточек
-$posts = [
+/*$posts = [
     [
         'title' => 'Цитата',
         'type' => 'post-quote',
@@ -38,7 +38,7 @@ $posts = [
         'name' => 'Владик',
         'avatar' => 'userpic.jpg'
     ]
-] ;
+] ;*/
 
 // Функция обрезания текста
 function textCut($str, $maxStringLen = 300) {
@@ -70,6 +70,4 @@ echo include_template('layout.php', [
     'pageName' => "Напиши собственный блог!"
 ]);
 
-
-
-?>
+?>                    
