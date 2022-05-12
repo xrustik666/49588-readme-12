@@ -46,77 +46,20 @@
                         </a>
                     </li>
 
-                    <?php
-                    /*Считываем данные из БД*/
-                    $con = mysqli_connect ("localhost", "root", "", "aida");
-                    mysqli_set_charset($con, "utf8");
-                    if (!$con) {
-                        echo "Ошибка подключения: " . mysql_err();
-                    }
-                    /*SQL-запрос для получения типов контента*/
-                    $ct_query = "SELECT content_name FROM content_types";
-                    $ct_result = mysqli_query ($con, $ct_query) ;
-                    /*Отправьте SQL-запрос для получения списка постов, объединённых с пользователями и отсортированный по популярности*/
-                    $p_query = "SELECT p.title, p.content, p.views, p.author 
-                                FROM posts p 
-                                JOIN users u ON u.id = p.id
-                                JOIN content_types ct ON ct.id = p.id
-                                ORDER BY p.views";
-                    $p_result = mysqli_query ($con, $p_query) ;
-
-                    $types = mysqli_fetch_all ($ct_result, MYSQLI_ASSOC);
-                    $posts = mysqli_fetch_all ($p_result, MYSQLI_ASSOC);
-                    ?>
+                    
                     
                     <? foreach ($types as $type) : ?>
-                    
                     <!-- Отображение типа постов по условию -->
                     <li class="popular__filters-item filters__item">
-                        <?php if ($type['content_name'] === 'Картинка') : ?>
-                        <a class="filters__button filters__button--photo button" href="#">
-                        <span class="visually-hidden"><?="Фото"; ?></span>
+                        
+                        <a class="filters__button filters__button--<?=$type['icon_name']; ?> button" href="#">
+                        <span class="visually-hidden"><?=$type['content_name']; ?></span>
                             <svg class="filters__icon" width="22" height="18">
-                                <use xlink:href="#icon-filter-photo"></use>
+                                <use xlink:href="#icon-filter-<?=$type['icon_name']; ?>"></use>
                             </svg>
                         </a>
                     </li>
-                    <li class="popular__filters-item filters__item">
-                        <?php elseif ($type['content_name'] === 'Видео') : ?>
-                            <a class="filters__button filters__button--video button" href="#">
-                            <span class="visually-hidden"><?="Видео"; ?></span>
-                            <svg class="filters__icon" width="24" height="16">
-                                <use xlink:href="#icon-filter-video"></use>
-                            </svg>
-                        </a>
-                    </li>
-                    <li class="popular__filters-item filters__item">
-                        <?php elseif ($type['content_name'] === 'Текст') : ?>
-                            <a class="filters__button filters__button--text button" href="#">
-                            <span class="visually-hidden"><?="Текст"; ?></span>
-                            <svg class="filters__icon" width="24" height="16">
-                                <use xlink:href="#icon-filter-text"></use>
-                            </svg>
-                        </a>
-                    </li>
-                    <li class="popular__filters-item filters__item">
-                        <?php elseif ($type['content_name'] === 'Цитата') : ?>
-                            <a class="filters__button filters__button--quote button" href="#">
-                            <span class="visually-hidden"><?="Цитата"; ?></span>
-                            <svg class="filters__icon" width="24" height="16">
-                                <use xlink:href="#icon-filter-quote"></use>
-                            </svg>
-                        </a>
-                    </li>
-                    <li class="popular__filters-item filters__item">
-                        <?php elseif ($type['content_name'] === 'Ссылка') : ?>
-                            <a class="filters__button filters__button--link button" href="#">
-                            <span class="visually-hidden"><?="Ссылка"; ?></span>
-                            <svg class="filters__icon" width="24" height="16">
-                                <use xlink:href="#icon-filter-link"></use>
-                            </svg>
-                        </a>
-                        <?php endif ?>
-                    </li>
+                    
                     <?php endforeach; ?>
                 </ul>
             </div>
@@ -128,7 +71,7 @@
                     <header class="post__header">
                         <h2>
                             <!--здесь заголовок-->
-                            <?=$post['title'];?>
+                            <?=$post['post_title'];?>
                         </h2>
                     </header>
                     <div class="post__main">
@@ -162,7 +105,7 @@
                                         <div class="post-link__info">
                                             <h3>
                                                 <!--здесь заголовок-->
-                                                <?=$post['title'];?>
+                                                <?=$post['post_title'];?>
                                             </h3>
                                         </div>
                                     </div>
@@ -196,7 +139,7 @@
                                     <img class="post__author-avatar" src="img/<?=$post['avatar'];?>" alt="Аватар пользователя">
                                 </div>
                                 <div class="post__info">
-                                    <b class="post__author-name"><!--здесь имя пользоателя--><?=$post['name'];?></b>
+                                    <b class="post__author-name"><!--здесь имя пользоателя--><?=$post['login'];?></b>
                                     <time class="post__time" datetime="<?=$postDate;?>" title = "<?=date("d.m.Y H:i:s", strtotime($postDate))?>">
                                         <?php
                                             $currentDate = date('d.m.Y H:i:s') ;
