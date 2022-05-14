@@ -46,8 +46,6 @@
                         </a>
                     </li>
 
-                    
-                    
                     <? foreach ($types as $type) : ?>
                     <!-- Отображение типа постов по условию -->
                     <li class="popular__filters-item filters__item">
