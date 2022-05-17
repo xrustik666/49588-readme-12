@@ -1,12 +1,6 @@
 <?php
 require_once 'helpers.php';
-
-/*Подключение к БД*/
-$con = mysqli_connect ("localhost", "root", "", "aida");
-mysqli_set_charset($con, "utf8");
-if (!$con) {
-    echo "Ошибка подключения: " . mysql_err();
-}
+require_once 'config/init.php';
 
 /*SQL-запрос для получения типов контента*/
 $ct_query = "SELECT DISTINCT content_name, icon_name FROM content_types";
@@ -22,36 +16,19 @@ $p_result = mysqli_query ($con, $p_query) ;
 $types = mysqli_fetch_all ($ct_result, MYSQLI_ASSOC);
 $posts = mysqli_fetch_all ($p_result, MYSQLI_ASSOC);
 
-
-// Функция обрезания текста
-function textCut($str, $maxStringLen = 300) {
-    $words = explode(' ', $str);
-    $length = -1;
-    $outWords = [];
-
-    foreach ($words as $word) {
-        $length += mb_strlen($word) + 1;
-
-        if ($length > $maxStringLen) {
-            break;
-        }
-
-        $outWords[] = $word;
-    }
-
-    return implode(' ', $outWords);
-}
-
-$pageContent = include_template ('main.php', [
+// Подключаем шаблоны
+$main = include_template ('main.php', [
     'posts' => $posts,
     'types' => $types
 ]) ;
 
-echo include_template('layout.php', [
-    'pageContent' => htmlspecialchars($pageContent),
+$layout =  include_template('layout.php', [
+    'pageContent' => htmlspecialchars($main),
     'isAuth' => mt_rand(0, 1),
     'userName' => 'Rustam Abdullaev',
     'pageName' => "Напиши собственный блог!"
 ]);
 
-?>                    
+echo $layout;
+
+?>
