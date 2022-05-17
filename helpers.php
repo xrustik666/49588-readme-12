@@ -267,3 +267,24 @@ function timeZone() {
     date_default_timezone_set("Europe/Moscow");
 }
 
+/**Функция обрезания текста
+$str - строка, которую надо обрезать
+$maxStringLen - максимальная длина строки
+*/
+function textCut($str, $maxStringLen = 300) {
+    $words = explode(' ', $str);
+    $length = -1;
+    $outWords = [];
+
+    foreach ($words as $word) {
+        $length += mb_strlen($word) + 1;
+
+        if ($length > $maxStringLen) {
+            break;
+        }
+
+        $outWords[] = $word;
+    }
+
+    return implode(' ', $outWords);
+}

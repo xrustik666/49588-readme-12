@@ -66,12 +66,14 @@
         <div class="popular__posts">
             <?php foreach ($posts as $index => $post) : ?>
                 <article class="popular__post post <?=$post['content_name'];?>">
+
                     <header class="post__header">
                         <h2>
                             <!--здесь заголовок-->
                             <?=$post['post_title'];?>
                         </h2>
                     </header>
+
                     <div class="post__main">
                         <!--здесь содержимое карточки-->
                         <?php if ($post['content_name'] === 'Цитата') : ?>
@@ -129,6 +131,7 @@
                             </p>
                         <?php endif; ?> 
                     </div>
+                    
                     <footer class="post__footer">
                         <div class="post__author">
                             <a class="post__author-link" href="#" title="Автор">
