@@ -13,8 +13,17 @@ $p_query = "SELECT p.title AS post_title, p.content, p.views, p.author, ct.conte
             ORDER BY p.views";
 $p_result = mysqli_query ($con, $p_query) ;
 
-$types = mysqli_fetch_all ($ct_result, MYSQLI_ASSOC);
-$posts = mysqli_fetch_all ($p_result, MYSQLI_ASSOC);
+if ($ct_result) {
+    $types = mysqli_fetch_all ($ct_result, MYSQLI_ASSOC);
+} else {
+    echo "С запросом или ресурсом запроса что-то не так";
+}
+
+if ($p_result) {
+    $posts = mysqli_fetch_all ($p_result, MYSQLI_ASSOC);
+} else {
+    echo "С запросом или ресурсом запроса что-то не так";
+}
 
 // Подключаем шаблоны
 $main = include_template ('main.php', [
@@ -23,7 +32,7 @@ $main = include_template ('main.php', [
 ]) ;
 
 $layout =  include_template('layout.php', [
-    'pageContent' => htmlspecialchars($main),
+    'main' => htmlspecialchars($main),
     'isAuth' => mt_rand(0, 1),
     'userName' => 'Rustam Abdullaev',
     'pageName' => "Напиши собственный блог!"
