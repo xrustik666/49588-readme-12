@@ -13,6 +13,7 @@ $p_query = "SELECT p.title AS post_title, p.content, p.views, p.author, ct.conte
             ORDER BY p.views";
 $p_result = mysqli_query ($con, $p_query) ;
 
+
 if ($ct_result) {
     $types = mysqli_fetch_all ($ct_result, MYSQLI_ASSOC);
 } else {
@@ -39,5 +40,3 @@ $layout =  include_template('layout.php', [
 ]);
 
 echo $layout;
-
-?>
