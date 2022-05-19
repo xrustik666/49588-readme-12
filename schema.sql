@@ -20,7 +20,7 @@ CREATE TABLE IF NOT EXISTS hashtags (
 
 CREATE TABLE IF NOT EXISTS content_types (
 	id INT AUTO_INCREMENT PRIMARY KEY,
-	content_name ENUM ('Текст', 'Цитата', 'Картинка', 'Видео', 'Ссылка') NOT NULL,
+	content_name ENUM ('Текст', 'Цитата', 'Фото', 'Видео', 'Ссылка') NOT NULL,
 	icon_name ENUM ('photo', 'video', 'text', 'quote', 'link')
 );
 
@@ -77,4 +77,3 @@ CREATE TABLE IF NOT EXISTS messages (
 	FOREIGN KEY (sender_id) REFERENCES users(id),
 	FOREIGN KEY (reciever_id) REFERENCES users(id)
 );
-

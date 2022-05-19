@@ -1,11 +1,13 @@
 <div class="container">
-        <h1 class="page__title page__title--popular">Популярное</h1>
-    </div>
+    <h1 class="page__title page__title--popular">Популярное</h1>
+</div>
     <div class="popular container">
         <div class="popular__filters-wrapper">
             <div class="popular__sorting sorting">
+
                 <b class="popular__sorting-caption sorting__caption">Сортировка:</b>
                 <ul class="popular__sorting-list sorting__list">
+
                     <li class="sorting__item sorting__item--popular">
                         <a class="sorting__link sorting__link--active" href="#">
                             <span>Популярность</span>
@@ -30,138 +32,69 @@
                             </svg>
                         </a>
                     </li>
+
                 </ul>
             </div>
+
             <div class="popular__filters filters">
                 <b class="popular__filters-caption filters__caption">Тип контента:</b>
                 <ul class="popular__filters-list filters__list">
+
                     <li class="popular__filters-item popular__filters-item--all filters__item filters__item--all">
                         <a class="filters__button filters__button--ellipse filters__button--all filters__button--active" href="#">
                             <span>Все</span>
                         </a>
                     </li>
+
+                    <? foreach ($types as $type) : ?>
+                    <!-- Отображение типа постов по условию -->
                     <li class="popular__filters-item filters__item">
-                        <a class="filters__button filters__button--photo button" href="#">
-                            <span class="visually-hidden">Фото</span>
+                        
+                        <a class="filters__button filters__button--<?=$type['icon_name']; ?> button" href="#">
+                        <span class="visually-hidden"><?=$type['content_name']; ?></span>
                             <svg class="filters__icon" width="22" height="18">
-                                <use xlink:href="#icon-filter-photo"></use>
+                                <use xlink:href="#icon-filter-<?=$type['icon_name']; ?>"></use>
                             </svg>
                         </a>
                     </li>
-                    <li class="popular__filters-item filters__item">
-                        <a class="filters__button filters__button--video button" href="#">
-                            <span class="visually-hidden">Видео</span>
-                            <svg class="filters__icon" width="24" height="16">
-                                <use xlink:href="#icon-filter-video"></use>
-                            </svg>
-                        </a>
-                    </li>
-                    <li class="popular__filters-item filters__item">
-                        <a class="filters__button filters__button--text button" href="#">
-                            <span class="visually-hidden">Текст</span>
-                            <svg class="filters__icon" width="20" height="21">
-                                <use xlink:href="#icon-filter-text"></use>
-                            </svg>
-                        </a>
-                    </li>
-                    <li class="popular__filters-item filters__item">
-                        <a class="filters__button filters__button--quote button" href="#">
-                            <span class="visually-hidden">Цитата</span>
-                            <svg class="filters__icon" width="21" height="20">
-                                <use xlink:href="#icon-filter-quote"></use>
-                            </svg>
-                        </a>
-                    </li>
-                    <li class="popular__filters-item filters__item">
-                        <a class="filters__button filters__button--link button" href="#">
-                            <span class="visually-hidden">Ссылка</span>
-                            <svg class="filters__icon" width="21" height="18">
-                                <use xlink:href="#icon-filter-link"></use>
-                            </svg>
-                        </a>
-                    </li>
+                    
+                    <?php endforeach; ?>
                 </ul>
             </div>
         </div>
+
         <div class="popular__posts">
-            <div class="visually-hidden" id="donor">
-                <!--содержимое для поста-цитаты-->
-                <blockquote>
-                    <p>
-                        <!--здесь текст-->
-                    </p>
-                    <cite>Неизвестный Автор</cite>
-                </blockquote>
-
-                <!--содержимое для поста-ссылки-->
-                <div class="post-link__wrapper">
-                    <a class="post-link__external" href="http://" title="Перейти по ссылке">
-                        <div class="post-link__info-wrapper">
-                            <div class="post-link__icon-wrapper">
-                                <img src="https://www.google.com/s2/favicons?domain=vitadental.ru" alt="Иконка">
-                            </div>
-                            <div class="post-link__info">
-                                <h3><!--здесь заголовок--></h3>
-                            </div>
-                        </div>
-                        <span><!--здесь ссылка--></span>
-                    </a>
-                </div>
-
-                <!--содержимое для поста-фото-->
-                <div class="post-photo__image-wrapper">
-                    <img src="img/" alt="Фото от пользователя" width="360" height="240">
-                </div>
-
-                <!--содержимое для поста-видео-->
-                <div class="post-video__block">
-                    <div class="post-video__preview">
-                        <?=embed_youtube_cover(/* вставьте ссылку на видео */); ?>
-                        <img src="img/coast-medium.jpg" alt="Превью к видео" width="360" height="188">
-                    </div>
-                    <a href="post-details.html" class="post-video__play-big button">
-                        <svg class="post-video__play-big-icon" width="14" height="14">
-                            <use xlink:href="#icon-video-play-big"></use>
-                        </svg>
-                        <span class="visually-hidden">Запустить проигрыватель</span>
-                    </a>
-                </div>
-
-                <!--содержимое для поста-текста-->
-                <p><!--здесь текст--></p>
-            </div>
-
-            
-            
             <?php foreach ($posts as $index => $post) : ?>
-                <article class="popular__post post <?=$post['type'];?>">
+                <article class="popular__post post <?=$post['content_name'];?>">
+
                     <header class="post__header">
                         <h2>
                             <!--здесь заголовок-->
-                            <?=$post['title'];?>
+                            <?=$post['post_title'];?>
                         </h2>
                     </header>
+
                     <div class="post__main">
                         <!--здесь содержимое карточки-->
-                        <?php if ($post['type'] === 'post-quote') : ?>
+                        <?php if ($post['content_name'] === 'Цитата') : ?>
                             <!--содержимое для поста-цитаты-->
                             <blockquote>
                                 <p>
                                     <!--здесь текст-->
                                     <?=$post['content'];?>
                                 </p>
-                                <cite>Неизвестный Автор</cite>
+                                <cite><?=$post['login'];?></cite>
                             </blockquote>            
                         <?php endif ; ?>
 
-                        <?php if ($post['type'] === 'post-photo') : ?>
+                        <?php if ($post['content_name'] === 'Картинка') : ?>
                             <!--содержимое для поста-фото-->
                             <div class="post-photo__image-wrapper">
                                 <img src="img/<?=$post['content'];?>" alt="Фото от пользователя" width="360" height="240">
                             </div>
                         <?php endif; ?>
 
-                        <?php if ($post['type'] === 'post-link') : ?>
+                        <?php if ($post['content_name'] === 'Ссылка') : ?>
                             <!--содержимое для поста-ссылки-->
                             <div class="post-link__wrapper">
                                 <a class="post-link__external" href="http://<?=$post['content'];?>" title="Перейти по ссылке">
@@ -172,7 +105,7 @@
                                         <div class="post-link__info">
                                             <h3>
                                                 <!--здесь заголовок-->
-                                                <?=$post['title'];?>
+                                                <?=$post['post_title'];?>
                                             </h3>
                                         </div>
                                     </div>
@@ -184,7 +117,7 @@
                             </div>
                         <?php endif; ?>
 
-                        <?php if ($post['type'] === 'post-text') : ?>
+                        <?php if ($post['content_name'] === 'Текст') : ?>
                             <!--содержимое для поста-текста-->
                             <p>
                                 <!--здесь текст-->
@@ -198,6 +131,7 @@
                             </p>
                         <?php endif; ?> 
                     </div>
+                    
                     <footer class="post__footer">
                         <div class="post__author">
                             <a class="post__author-link" href="#" title="Автор">
@@ -206,7 +140,7 @@
                                     <img class="post__author-avatar" src="img/<?=$post['avatar'];?>" alt="Аватар пользователя">
                                 </div>
                                 <div class="post__info">
-                                    <b class="post__author-name"><!--здесь имя пользоателя--><?=$post['name'];?></b>
+                                    <b class="post__author-name"><!--здесь имя пользоателя--><?=$post['login'];?></b>
                                     <time class="post__time" datetime="<?=$postDate;?>" title = "<?=date("d.m.Y H:i:s", strtotime($postDate))?>">
                                         <?php
                                             $currentDate = date('d.m.Y H:i:s') ;
