@@ -39,16 +39,4 @@ $layout =  include_template('layout.php', [
     'pageName' => "Напиши собственный блог!"
 ]);
 
-<<<<<<< HEAD
 echo $layout;
-=======
-$con = mysqli_connect ("localhost", "root", "", "aida") ;
-if (!$con) {
-    echo ("Ошибка подключения: " . mysqli_connect_err()) ;
-} else {
-    echo ("Подключение установлено!") ;
-}
-
-
-?>
->>>>>>> master
