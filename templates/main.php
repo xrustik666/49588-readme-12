@@ -41,16 +41,16 @@
                 <ul class="popular__filters-list filters__list">
 
                     <li class="popular__filters-item popular__filters-item--all filters__item filters__item--all">
-                        <a class="filters__button filters__button--ellipse filters__button--all filters__button--active" href="#">
+                        <a class="filters__button filters__button--ellipse filters__button--all <?= $content_type === null ? 'filters__button--active' : '' ?>" href="#">
                             <span>Все</span>
                         </a>
                     </li>
 
                     <? foreach ($types as $type) : ?>
+                        
                     <!-- Отображение типа постов по условию -->
                     <li class="popular__filters-item filters__item">
-                        
-                        <a class="filters__button filters__button--<?=$type['icon_name']; ?> button" href="#">
+                        <a class="filters__button filters__button--<?=$type['icon_name']; ?> <?= $content_type === $type['id'] ? 'filters__button--active' : '' ?> button" href="index.php?type=<?=$type['id'];?>">
                         <span class="visually-hidden"><?=$type['content_name']; ?></span>
                             <svg class="filters__icon" width="22" height="18">
                                 <use xlink:href="#icon-filter-<?=$type['icon_name']; ?>"></use>
@@ -70,7 +70,7 @@
                     <header class="post__header">
                         <h2>
                             <!--здесь заголовок-->
-                            <?=$post['post_title'];?>
+                            <a href="post.php?id=<?= $post['id'] ?>"><?= $post['post_title']; ?></a>
                         </h2>
                     </header>
 
