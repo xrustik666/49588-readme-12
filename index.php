@@ -1,17 +1,17 @@
 <?php
 
-$content_type = $_GET['type'] ?? null;
-
 require_once 'helpers.php';
 require_once 'config/db.php';
 require_once 'config/queries.php';
 
+$content_type = $_GET['type'] ?? null;
+
 // Подключаем шаблоны
 $main = include_template ('main.php', [
-    'posts' => $posts,
-    'types' => $types,
+    'posts' => $getPostList($content_type),
+    'types' => $getContentTypeList(),
     'content_type' => $content_type
-]) ;
+]);
 
 $layout =  include_template('layout.php', [
     'main' => htmlspecialchars($main),
