@@ -1,8 +1,7 @@
 <!-- пост-текст -->
 <div class="post-details__image-wrapper post-text">
   <div class="post__main">
-    <p>
-      <?=$text;?>
-    </p>
+    <p><?=$title;?></p>
+    <p><?=$content;?></p>
   </div>
 </div>

@@ -1,5 +1,5 @@
 <?
-
+/* Фунция отображения поста  */
 $getPostData = function (int $id) use ($con) {
     $ct_query = "SELECT p.*, ct.icon_name FROM posts p
                 JOIN content_types ct ON ct.id = p.content_type_id
@@ -13,7 +13,7 @@ $getPostData = function (int $id) use ($con) {
     }
 };
 
-/*Функция-SQL-запрос для получения типов контента*/
+/* Функция-SQL-запрос для получения типов контента */
 $getContentTypeList = function () use ($con) {
     $ct_query = "SELECT id, content_name, icon_name
                 FROM content_types";
@@ -26,7 +26,7 @@ $getContentTypeList = function () use ($con) {
     }
 };
 
-/*SQL-запрос для получения списка постов, объединённых с пользователями и отсортированный по популярности*/
+/* SQL-запрос для получения списка постов, объединённых с пользователями и отсортированный по популярности */
 $getPostList = function ($content_type) use ($con) {
     $contentTypeCondition = mysqli_real_escape_string($con, ($content_type !== null ? "WHERE p.content_type_id = {$content_type}" : ''));
     $p_query = "SELECT p.id AS post_id, p.title AS post_title, p.content AS post_content, p.views, p.author, ct.content_name, u.login AS user_login, u.avatar

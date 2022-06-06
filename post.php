@@ -13,24 +13,28 @@ if (empty ($post)) {
 
 if ($post['icon_name'] === 'link') {
         $post_main = include_template('post-link.php', [
-            'link' => $post['link'],
-            'title' => $post['title']
+            'title' => $post['title'],
+            'link' => $post['link']
         ]);
 } else if ($post['icon_name'] === 'photo') {
         $post_main = include_template('post-photo.php', [
-            'img' => $post['img']
+            'title' => $post['title'],
+            'image' => $post['image']
         ]);
 } else if ($post['icon_name'] === 'quote') {
         $post_main = include_template('post-quote.php', [
-            'text' => $post['content'],
+            'title' => $post['title'],
+            'content' => $post['content'],
             'cite_author' => $post['cite_author']
         ]);
 } else if ($post['icon_name'] === 'text') {
         $post_main = include_template('post-text.php', [
-            'text' => $post['content']
+            'title' => $post['title'],
+            'content' => $post['content']
         ]);
 } else if ($post['icon_name'] === 'video') {
     $post_main = include_template('post-video.php', [
+        'title' => $post['title'],
         'video' => $post['video']
     ]);
 }
