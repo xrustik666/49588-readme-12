@@ -43,7 +43,7 @@
 
                 <li class="popular__filters-item popular__filters-item--all filters__item filters__item--all">
                     <!-- Если параметр запроса не указан, то классом filters__button--active надо отметить ссылку «Все» -->
-                    <a class="filters__button filters__button--ellipse filters__button--all <?= $content_type === null ? 'filters__button--active' : '' ?>" href="">
+                    <a class="filters__button filters__button--ellipse filters__button--all <?= $content_type === null ? 'filters__button--active' : '' ?>" href="index.php">
                         <span>Все</span>
                     </a>
                 </li>
