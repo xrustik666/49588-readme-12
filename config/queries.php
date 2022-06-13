@@ -1,7 +1,7 @@
 <?
 /* Фунция отображения поста  */
 $getPostData = function (int $id) use ($con) {
-    $ct_query = "SELECT p.*, u.*, ct.icon_name FROM posts p
+    $ct_query = "SELECT p.*, u.*, u.login AS user_login, u.avatar AS user_avatar, ct.icon_name FROM posts p
                 JOIN content_types ct ON ct.id = p.content_type_id
                 JOIN users u ON u.id = p.post_author_id
                 WHERE p.id = $id";

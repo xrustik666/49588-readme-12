@@ -17,36 +17,46 @@ if (empty ($post)) {
 if ($post['icon_name'] === 'link') {
     $post_main = include_template('post-link.php', [
         'title' => $post['title'],
-        'link' => $post['link']
+        'link' => $post['link'],
+        'user_login' => $post['user_login'],
+        'user_avatar' => $post['user_avatar']
     ]);
 } else if ($post['icon_name'] === 'photo') {
     $post_main = include_template('post-photo.php', [
         'title' => $post['title'],
-        'image' => $post['image']
+        'image' => $post['image'],
+        'user_login' => $post['user_login'],
+        'user_avatar' => $post['user_avatar']
     ]);
 } else if ($post['icon_name'] === 'quote') {
     $post_main = include_template('post-quote.php', [
         'title' => $post['title'],
         'content' => $post['content'],
-        'cite_author' => $post['cite_author']
+        'cite_author' => $post['cite_author'],
+        'user_login' => $post['user_login'],
+        'user_avatar' => $post['user_avatar']
     ]);
 } else if ($post['icon_name'] === 'text') {
     $post_main = include_template('post-text.php', [
         'title' => $post['title'],
-        'content' => $post['content']
+        'content' => $post['content'],
+        'user_login' => $post['user_login'],
+        'user_avatar' => $post['user_avatar']
     ]);
 } else if ($post['icon_name'] === 'video') {
     $post_main = include_template('post-video.php', [
         'title' => $post['title'],
-        'video' => $post['video']
+        'content' => $post['content'],
+        'video' => $post['video'],
+        'user_login' => $post['user_login'],
+        'user_avatar' => $post['user_avatar']
     ]);
 }
 
 $layout =  include_template('layout.php', [
     'main' => htmlspecialchars($post_main),
+    'pageName' => "Напиши собственный блог!",
     'isAuth' => mt_rand(0, 1),
-    'userName' => 'Rustam Abdullaev',
-    'pageName' => "Напиши собственный блог!"
 ]);
 
 echo $layout;

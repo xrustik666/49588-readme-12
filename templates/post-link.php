@@ -1,4 +1,10 @@
 <!-- пост-ссылка -->
+<header class="post__header">
+    <h2>
+        <!--здесь заголовок-->
+        <?=$title;?>
+    </h2>
+</header>
 <div class="post__main">
   <div class="post-link__wrapper">
     <a class="post-link__external" href="http://<?=$url;?>" title="Перейти по ссылке">
@@ -13,3 +19,11 @@
     </a>
   </div>
 </div>
+<footer class="post__footer">
+      <div class="post__author">
+        <div class="post__avatar-wrapper">
+          <img class="post__author-avatar" src="img/<?=$user_avatar;?>" alt="Аватар пользователя"></p>
+        </div>
+        <p><?=$user_login;?></p>
+      </div>
+</footer>
