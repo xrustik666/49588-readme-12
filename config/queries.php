@@ -1,8 +1,9 @@
 <?
 /* Фунция отображения поста  */
 $getPostData = function (int $id) use ($con) {
-    $ct_query = "SELECT p.*, ct.icon_name FROM posts p
+    $ct_query = "SELECT p.*, u.*, ct.icon_name FROM posts p
                 JOIN content_types ct ON ct.id = p.content_type_id
+                JOIN users u ON u.id = p.post_author_id
                 WHERE p.id = $id";
     $ct_result = mysqli_query ($con, $ct_query) ;
 
