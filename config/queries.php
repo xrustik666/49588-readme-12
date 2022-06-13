@@ -30,7 +30,7 @@ $getContentTypeList = function () use ($con) {
 /* SQL-запрос для получения списка постов, объединённых с пользователями и отсортированный по популярности */
 $getPostList = function ($content_type) use ($con) {
     $contentTypeCondition = mysqli_real_escape_string($con, ($content_type !== null ? "WHERE p.content_type_id = {$content_type}" : ''));
-    $p_query = "SELECT p.id AS post_id, p.title AS post_title, p.content AS post_content, p.views, p.author, ct.content_name, u.login AS user_login, u.avatar
+    $p_query = "SELECT p.id AS post_id, p.title AS post_title, p.content AS post_content, p.video AS post_video, p.views, p.author, ct.content_name, u.login AS user_login, u.avatar
                 FROM posts p 
                 JOIN users u ON u.id = p.id
                 JOIN content_types ct ON ct.id = p.id
