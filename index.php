@@ -14,9 +14,13 @@ $main = include_template ('main.php', [
 ]);
 
 $layout =  include_template('layout.php', [
+    // Шаблон основной части главной страницы
     'main' => htmlspecialchars($main),
+    // Рандомно показывать авторизованного юзера
     'isAuth' => mt_rand(0, 1),
-    'userName' => 'Rustam Abdullaev',
+    // Имя пользователя, под которым совершен вход
+    'myName' => 'Rustam Abdullaev',
+    // Тайтл главной страницы
     'pageName' => "Напиши собственный блог!"
 ]);
 

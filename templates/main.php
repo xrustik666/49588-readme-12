@@ -122,16 +122,20 @@
 
                     <?php if ($post['content_name'] === 'Текст') : ?>
                         <!--содержимое для поста-текста-->
-                        <p>
-                            <!--здесь текст-->
-                            <!--Вызов функции обрезания текста-->
-                            <?php if (mb_strlen($post['post_content']) > 300): ?>
-                                <?= textCut($post['post_content']); ?>...
-                                <p><a href="#">Читать далее</a>
-                            <?php else: ?>
-                                <?= textCut($post['post_content']); ?>
-                            <?php endif; ?>
-                        </p>
+                        <div class="post-details__image-wrapper post-text">
+                            <div class="post__main">
+                                <p>
+                                    <!--здесь текст-->
+                                    <!--Вызов функции обрезания текста-->
+                                    <?php if (mb_strlen($post['post_content']) > 300): ?>
+                                        <?= textCut($post['post_content']); ?>...
+                                        <p><a href="#">Читать далее</a>
+                                    <?php else: ?>
+                                        <?= textCut($post['post_content']); ?>
+                                    <?php endif; ?>
+                                </p>
+                            </div>
+                        </div>
                     <?php endif; ?> 
 
                     <?php if ($post['content_name'] === 'Видео') : ?>

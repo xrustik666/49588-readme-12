@@ -15,7 +15,7 @@
 <header class="header">
     <div class="header__wrapper container">
         <div class="header__logo-wrapper">
-            <a class="header__logo-link" href="main.html">
+            <a class="header__logo-link" href="index.php">
                 <img class="header__logo" src="img/logo.svg" alt="Логотип readme" width="128" height="24">
             </a>
             <p class="header__topic">
@@ -64,7 +64,7 @@
                                     </div>
                                     <div class="header__profile-name">
                                         <span>
-                                            <!--здесь должно быть имя пользователя-->
+                                            <?=$myName;?>
                                         </span>
                                         <svg class="header__link-arrow" width="10" height="6">
                                             <use xlink:href="#icon-arrow-right-ad"></use>
@@ -106,7 +106,7 @@
                             </li>
                         </ul>
                     </nav>
-                <?php endif ; ?>
+            <?php endif ; ?>
         </div>
     </div>
 </header>
