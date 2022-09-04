@@ -90,10 +90,10 @@
                         </blockquote>            
                     <?php endif ; ?>
 
-                    <?php if ($post['content_name'] === 'Картинка') : ?>
+                    <?php if ($post['content_name'] === 'Фото') : ?>
                         <!--содержимое для поста-фото-->
                         <div class="post-photo__image-wrapper">
-                            <img src="img/<?=$post['post_content'];?>" alt="Фото от пользователя" width="360" height="240">
+                            <img src="img/<?=$post['post_image'];?>" alt="Фото от пользователя" width="360" height="240">
                         </div>
                     <?php endif; ?>
 
