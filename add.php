@@ -8,6 +8,4 @@ $content_type = $_GET['type'] ?? null;
 
 // Подключаем шаблоны
 
-
-
-
+echo $content_type;
